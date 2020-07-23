@@ -7,11 +7,10 @@ setTimeout(function() {
     console.log(new Date());
 }, 2000);
 
-process.nextTick(function() {
-    for(let i = 0; i < 1e10; i++) {
-
-    }
-});
+setImmediate(function() {
+    for(let i = 0; i < 1e10; i++) {}
+    // [...Array(1e8).keys()].forEach(function() {})
+}, 0);
 
 console.log("bottom");
 
