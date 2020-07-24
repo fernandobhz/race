@@ -1,17 +1,17 @@
-console.log("top");
-
 console.log(new Date());
 
 setTimeout(function() {
-    console.log('2 seconds after')
     console.log(new Date());
-}, 2000);
+}, 500);
 
-setImmediate(function() {
-    for(let i = 0; i < 1e10; i++) {}
-    // [...Array(1e8).keys()].forEach(function() {})
-}, 0);
+console.time('theForbiddenLoop');
+
+// just a poc... don't do that on real code
+// but that code shows how to not block execution of others things
+// see also: cluster, child process, worker threads
+(function theForbiddenLoop(i) {
+    if (i < 1e6) setImmediate(theForbiddenLoop, ++i);
+    else console.timeEnd('theForbiddenLoop');
+}(0));
 
 console.log("bottom");
-
-
